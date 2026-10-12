@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شرح كتاب البرمجة بلغة بايثون - أكاديمية حسوب</title>
+    <title id="pageTitle">دليل تعلم بايثون</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,11 +13,37 @@
             --accent-blue: #38bdf8;
             --accent-green: #4ade80;
             --accent-yellow: #facc15;
-            --accent-hsoub: #2563eb;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #475569;
             --code-bg: #090d16;
+        }
+
+        /* Themes */
+        body.theme-light {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #e2e8f0;
+            --accent-blue: #0284c7;
+            --accent-green: #16a34a;
+            --accent-yellow: #ca8a04;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --code-bg: #1e293b;
+        }
+
+        body.theme-black {
+            --bg-primary: #000000;
+            --bg-secondary: #121212;
+            --bg-card: #1e1e1e;
+            --accent-blue: #60a5fa;
+            --accent-green: #34d399;
+            --accent-yellow: #fbbf24;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border-color: #333333;
+            --code-bg: #050505;
         }
 
         * {
@@ -25,6 +51,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -47,61 +74,72 @@
             right: 0;
             top: 0;
             z-index: 100;
-            transition: transform 0.3s ease;
+        }
+
+        body[dir="ltr"] aside {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
         }
 
         .sidebar-header {
-            padding: 20px;
+            padding: 15px 20px;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            background: var(--bg-secondary);
         }
 
-        .sidebar-header h2 {
-            font-size: 1.2rem;
-            color: var(--accent-blue);
-            margin-bottom: 5px;
+        .controls-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
         }
 
-        .sidebar-header p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        .control-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent-blue);
         }
 
         .search-box {
-            padding: 15px 20px;
+            padding: 10px 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             background-color: var(--bg-primary);
             color: var(--text-main);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: var(--accent-blue);
         }
 
         .nav-chapters {
             flex: 1;
             overflow-y: auto;
-            padding: 15px 10px;
+            padding: 10px;
         }
 
         .nav-chapter-item {
             display: block;
-            padding: 12px 15px;
-            margin-bottom: 6px;
-            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -113,127 +151,124 @@
 
         .nav-chapter-item .ch-num {
             display: inline-block;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             background-color: rgba(56, 189, 248, 0.1);
             color: var(--accent-blue);
             border-radius: 50%;
             text-align: center;
-            line-height: 24px;
-            font-size: 0.8rem;
-            margin-left: 8px;
+            line-height: 22px;
+            font-size: 0.75rem;
+            margin-left: 6px;
+        }
+
+        body[dir="ltr"] .nav-chapter-item .ch-num {
+            margin-left: 0;
+            margin-right: 6px;
         }
 
         /* Main Content */
         main {
             margin-right: 320px;
             flex: 1;
-            padding: 40px;
+            padding: 30px;
             max-width: 1000px;
         }
 
+        body[dir="ltr"] main {
+            margin-right: 0;
+            margin-left: 320px;
+        }
+
         header.hero {
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
-            padding: 30px;
-            border-radius: 16px;
+            background-color: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 40px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
 
         .hero h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--text-main);
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-            color: var(--accent-blue);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .hero p {
             color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         /* Chapter Cards */
         .chapter-card {
             background-color: var(--bg-secondary);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
-            padding: 30px;
-            margin-bottom: 30px;
-            scroll-margin-top: 30px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .chapter-card:hover {
-            border-color: var(--accent-blue);
+            padding: 25px;
+            margin-bottom: 25px;
+            scroll-margin-top: 20px;
         }
 
         .chapter-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--accent-blue);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
 
         .chapter-title .tag {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background-color: rgba(56, 189, 248, 0.15);
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 3px 8px;
+            border-radius: 15px;
             color: var(--accent-blue);
         }
 
         .chapter-content {
-            color: #cbd5e1;
-            line-height: 1.8;
-            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
 
         .chapter-content h4 {
             color: var(--accent-green);
-            margin: 20px 0 10px 0;
-            font-size: 1.1rem;
+            margin: 15px 0 8px 0;
+            font-size: 1rem;
         }
 
         .chapter-content ul {
-            margin-right: 20px;
-            margin-bottom: 15px;
+            margin: 0 20px 10px 0;
+        }
+
+        body[dir="ltr"] .chapter-content ul {
+            margin: 0 0 10px 20px;
         }
 
         .chapter-content li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         /* Interactive Code Block */
         .code-block {
             background-color: var(--code-bg);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            margin: 20px 0;
+            margin: 15px 0;
             overflow: hidden;
         }
 
         .code-header {
-            background-color: #1e293b;
-            padding: 10px 15px;
+            background-color: var(--bg-secondary);
+            padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             border-bottom: 1px solid var(--border-color);
         }
@@ -247,43 +282,36 @@
             background-color: #16a34a;
             color: white;
             border: none;
-            padding: 5px 12px;
-            border-radius: 6px;
+            padding: 4px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .run-btn:hover {
-            background-color: #15803d;
         }
 
         pre code {
             display: block;
-            padding: 15px;
+            padding: 12px;
             font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #e2e8f0;
             overflow-x: auto;
             direction: ltr;
             text-align: left;
-            line-height: 1.5;
         }
 
         .code-output {
             background-color: #030712;
-            padding: 12px 15px;
+            padding: 10px 12px;
             border-top: 1px dashed var(--border-color);
             font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--accent-green);
             direction: ltr;
             text-align: left;
             display: none;
         }
 
-        /* Responsive Mobile Toggle */
         .mobile-toggle {
             display: none;
             position: fixed;
@@ -292,25 +320,29 @@
             background-color: var(--accent-blue);
             color: #0f172a;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             z-index: 200;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         @media (max-width: 900px) {
             aside {
                 transform: translateX(100%);
+                transition: transform 0.3s;
+            }
+            body[dir="ltr"] aside {
+                transform: translateX(-100%);
             }
             aside.open {
                 transform: translateX(0);
             }
             main {
-                margin-right: 0;
-                padding: 20px;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+                padding: 15px;
             }
             .mobile-toggle {
                 display: block;
@@ -318,262 +350,317 @@
         }
     </style>
 </head>
-<body>
+<body class="theme-dark">
 
     <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- Sidebar Navigation -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <h2>🐍 دليلك الشامل لتعلم بايثون</h2>
-            <p>شرح كتاب البرمجة بلغة بايثون 3</p>
+            <div class="controls-bar">
+                <button class="control-btn" onclick="setLanguage('ar')">العربية</button>
+                <button class="control-btn" onclick="setLanguage('ku')">کوردي (بادينان)</button>
+                <button class="control-btn" onclick="setTheme('theme-dark')">🌙 داكن</button>
+                <button class="control-btn" onclick="setTheme('theme-light')">☀️ أبيض</button>
+                <button class="control-btn" onclick="setTheme('theme-black')">⬛ أسود</button>
+            </div>
+            <h3 id="sidebarTitle" style="font-size: 1rem; color: var(--accent-blue);">شرح كتاب بايثون</h3>
         </div>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="بحث في فصول الكتاب..." onkeyup="filterChapters()">
+            <input type="text" id="searchInput" placeholder="بحث..." onkeyup="filterChapters()">
         </div>
-        <nav class="nav-chapters" id="chaptersNav">
-            <!-- Nav Items Generated Dynamically -->
-        </nav>
+        <nav class="nav-chapters" id="chaptersNav"></nav>
     </aside>
 
-    <!-- Main Content Area -->
     <main>
         <header class="hero">
-            <h1>شرح وتلخيص كتاب "البرمجة بلغة بايثون 3"</h1>
-            <div class="hero-meta">
-                <span> تأليف: ليزا تاغليفيري</span>
-                <span> ترجمة ونشر: أكاديمية حسوب</span>
-                <span> الرخصة: المشاع الإبداعي (CC BY-NC-SA 4.0)</span>
-            </div>
-            <p>
-                مرجع تعليمي وتفاعلي يغطي الفصول الأساسية والمتقدمة في لغة بايثون 3. صُمم هذا الموقع ليساعدك على فهم وتطبيق الأمثلة البرمجية والدروس المقدمة في الكتاب بشكل عملي وسلس.
-            </p>
+            <h1 id="heroTitle">شرح وتلخيص كتاب "البرمجة بلغة بايثون 3"</h1>
+            <p id="heroDesc">مرجع تعليمي وتفاعلي يغطي الفصول الأساسية والمتقدمة في لغة بايثون 3 لتسهيل التطبيق العملي.</p>
         </header>
 
-        <section id="chaptersContainer">
-            <!-- Chapter Cards Generated Dynamically -->
-        </section>
+        <section id="chaptersContainer"></section>
     </main>
 
     <script>
-        // Data derived from the PDF content
-        const bookData = [
-            {
-                id: 1,
-                title: "مدخل تعريفي إلى لغة بايثون",
-                tag: "المقدمة والأساسيات",
-                summary: "تأريخ ومميزات لغة بايثون، مجالات استخدامها، ولماذا تعتبر الخيار الأول للمبتدئين والمحترفين.",
-                details: `
-                    <h4>عن لغة بايثون:</h4>
-                    <p>طُوّرت بايثون على يد <strong>غيدو فان روسوم (Guido van Rossum)</strong> ونُشرت أول مرة عام 1991. تتميز بكونها لغة عالية المستوى، متعددة الأغراض، وسهلة القراءة والتعلم.</p>
-                    <h4>أهم مميزات بايثون:</h4>
-                    <ul>
-                        <li><strong>سهولة التعلم والمقروئية:</strong> صياغتها تشبه اللغة الإنجليزية البسيطة.</li>
-                        <li><strong>مكتبة قياسية واسعة:</strong> توفر حزماً جاهزة لكل المهام.</li>
-                        <li><strong>متعددة المنصات:</strong> تعمل على ويندوز، لينكس، وmacOS بنفس الواجهة.</li>
-                    </ul>
-                    <h4>أين تُستخدم بايثون؟</h4>
-                    <p>تُستخدم في تطوير الويب، الذكاء الاصطناعي وتعلّم الآلة، تحليل البيانات، الأتمتة، والألعاب.</p>
-                `
+        const translations = {
+            ar: {
+                pageTitle: "شرح كتاب البرمجة بلغة بايثون",
+                sidebarTitle: "فصول الكتاب",
+                searchPlaceholder: "بحث في الفصول...",
+                heroTitle: "شرح وتلخيص كتاب \"البرمجة بلغة بايثون 3\"",
+                heroDesc: "مرجع تعليمي وتفاعلي يغطي الفصول الأساسية والمتقدمة في لغة بايثون 3 لتسهيل التطبيق العملي.",
+                runCodeText: "تشغيل الشيفرة",
+                chapters: [
+                    {
+                        id: 1,
+                        title: "مدخل تعريفي إلى لغة بايثون",
+                        tag: "المقدمة والأساسيات",
+                        summary: "تأريخ ومميزات لغة بايثون، مجالات استخدامها، ولماذا تعتبر الخيار الأول للمبتدئين.",
+                        details: `<h4>عن لغة بايثون:</h4><p>طُوّرت على يد <strong>غيدو فان روسوم</strong> ونُشرت عام 1991. تتميز بكونها لغة عالية المستوى، متعددة الأغراض، وسهلة القراءة.</p>`
+                    },
+                    {
+                        id: 2,
+                        title: "تثبيت بايثون وإعداد بيئة العمل",
+                        tag: "التهيئة والبيئة",
+                        summary: "طريقة تثبيت بايثون 3 وإعداد البيئات الافتراضية (venv) على مختلف أنظمة التشغيل.",
+                        details: `<h4>البيئات الافتراضية:</h4><p>تتيح لك البيئة الافتراضية إنشاء مساحة معزولة لكل مشروع لتجنب تعارض الحزم.</p>`,
+                        code: `python3 -m venv my_env\nsource my_env/bin/activate`,
+                        output: "(my_env) user@computer:~$ "
+                    },
+                    {
+                        id: 3,
+                        title: "سطر أوامر بايثون التفاعلي (REPL)",
+                        tag: "الأدوات والتجربة",
+                        summary: "كيفية التعامل مع موجه الأوامر التفاعلي لاختبار وتجربة الشيفرات البرمجية بسرعة.",
+                        details: `<p>يوفّر مترجم بايثون التفاعلي إمكانية تنفيذ الأوامر مباشرة دون الحاجة لإنشاء ملفات كاملة.</p>`,
+                        code: `>>> birth_year = 1868\n>>> death_year = 1921\n>>> print(death_year - birth_year)`,
+                        output: "53"
+                    },
+                    {
+                        id: 4,
+                        title: "التعليقات واستخداماتها",
+                        tag: "قواعد الشيفرة",
+                        summary: "صياغة التعليقات السطرية والكتلية لتوضيح وتنقيح الشيفرات.",
+                        details: `<h4>أنواع التعليقات:</h4><ul><li>التعليقات السطرية تبدأ بالرمز <code>#</code>.</li></ul>`,
+                        code: `# طباعة رسالة ترحيبية\nprint("Hello, World!")`,
+                        output: "Hello, World!"
+                    },
+                    {
+                        id: 5,
+                        title: "المتغيرات واستخداماتها",
+                        tag: "أساسيات البرمجة",
+                        summary: "قواعد تسمية المتغيرات، الإسناد المتعدد، والنطاق العام والمحلي.",
+                        details: `<h4>قواعد التسمية:</h4><p>يجب أن تتكون من أحرف، أرقام، والشرطة السفلى <code>_</code> فقط ولا تبدأ برقم.</p>`,
+                        code: `j, k, l = "shark", 2.05, 15\nprint(j, k, l)`,
+                        output: "shark 2.05 15"
+                    },
+                    {
+                        id: 6,
+                        title: "أنواع البيانات والتحويل بينها",
+                        tag: "البيانات",
+                        summary: "الأعداد الصحيحة والعشرية، السلاسل النصية، القوائم، الصفوف، القواميس.",
+                        details: `<h4>الدوال المضمنة:</h4><p>مثل <code>int()</code> و <code>float()</code> و <code>str()</code>.</p>`,
+                        code: `lines = 50\nprint("كتبت " + str(lines) + " سطراً.")`,
+                        output: "كتبت 50 سطراً."
+                    },
+                    {
+                        id: 7,
+                        title: "السلاسل النصية والتعامل معها",
+                        tag: "النصوص",
+                        summary: "فهرسة السلاسل النصية، التقسيم (Slicing)، ودوال معالجة النصوص.",
+                        details: `<p>يمكن اقتطاع أجزاء من النص بدقة باستخدام الفهارس.</p>`,
+                        code: `ss = "Sammy Shark!"\nprint(ss[::-1])`,
+                        output: "!krahS ymmaS"
+                    },
+                    {
+                        id: 8,
+                        title: "مدخل إلى تنسيق النصوص",
+                        tag: "النصوص والتنسيق",
+                        summary: "استخدام محارف التهريب، السلاسل النصية الخام، والمنسقات format().",
+                        details: `<p>تتيح الدالة <code>str.format()</code> إدراج المتغيرات وتنسيق الأعداد بمرونة.</p>`,
+                        code: `print("النسبة: {0:.2f}%".format(75.765))`,
+                        output: "النسبة: 75.77%"
+                    },
+                    {
+                        id: 9,
+                        title: "العمليات الحسابية",
+                        tag: "الرياضيات",
+                        summary: "العوامل الحسابية المختلفة، أسبقية العمليات، والدوال الرياضية المضمنة.",
+                        details: `<h4>الدوال الرياضية:</h4><p>مثل <code>abs()</code> و <code>divmod()</code> و <code>round()</code>.</p>`,
+                        code: `print(divmod(85, 15))`,
+                        output: "(5, 10)"
+                    },
+                    {
+                        id: 10,
+                        title: "العمليات المنطقية (البوليانية)",
+                        tag: "المنطق والشرط",
+                        summary: "عوامل الموازنة والعمليات المنطقية (and, or, not) وجداول الحقيقة.",
+                        details: `<p>تأخذ القيمتين <code>True</code> أو <code>False</code> للتحكم في مسار البرامج.</p>`,
+                        code: `grade = 83\nif grade >= 65:\n    print("ناجح")`,
+                        output: "ناجح"
+                    },
+                    {
+                        id: 11,
+                        title: "النوع List: مدخل إلى القوائم",
+                        tag: "هياكل البيانات",
+                        summary: "إنشاء القوائم، التعديل عليها، وتوابع القوائم مثل append و insert.",
+                        details: `<p>القوائم (Lists) بنى بيانات مرتبة وقابلة للتعديل.</p>`,
+                        code: `lst = ['shark', 'squid']\nlst.append('octopus')\nprint(lst)`,
+                        output: "['shark', 'squid', 'octopus']"
+                    },
+                    {
+                        id: 12,
+                        title: "النوع Tuple: فهم الصفوف",
+                        tag: "هياكل البيانات",
+                        summary: "الصفوف الثابتة غير القابلة للتعديل (Immutable).",
+                        details: `<p>الصفوف (Tuples) تشبه القوائم ولكنها ثابتة.</p>`,
+                        code: `coral = ('blue coral', 'staghorn coral')\nprint(len(coral))`,
+                        output: "2"
+                    },
+                    {
+                        id: 13,
+                        title: "النوع Dictionary: فهم القواميس",
+                        tag: "هياكل البيانات",
+                        summary: "هيكل أزواج المفاتيح والقيم (Key-Value).",
+                        details: `<p>تُستخدم القواميس لتخزين البيانات المترابطة عبر المفاتيح.</p>`,
+                        code: `sammy = {'username': 'sammy-shark', 'followers': 987}\nprint(sammy['username'])`,
+                        output: "sammy-shark"
+                    }
+                ]
             },
-            {
-                id: 2,
-                title: "تثبيت بايثون وإعداد بيئة العمل",
-                tag: "التهيئة والبيئة",
-                summary: "طريقة تثبيت بايثون 3 وإعداد البيئات الافتراضية (Virtual Environments) على مختلف أنظمة التشغيل.",
-                details: `
-                    <h4>البيئات الافتراضية (venv):</h4>
-                    <p>تتيح لك البيئة الافتراضية إنشاء مساحة معزولة لكل مشروع على حاسوبك، لت تجنب تعارض الاعتماديات والحزم البرمجية.</p>
-                    <h4>أوامر إنشاء وتفعيل البيئة:</h4>
-                `,
-                code: `# إنشاء بيئة افتراضية باسم my_env
-python3 -m venv my_env
-
-# تفعيل البيئة على نظام لينكس/ماك
-source my_env/bin/activate
-
-# تفعيل البيئة على نظام ويندوز
-my_env\\Scripts\\activate`,
-                output: "(my_env) user@computer:~$ "
-            },
-            {
-                id: 3,
-                title: "سطر أوامر بايثون التفاعلي (REPL)",
-                tag: "الأدوات والتجربة",
-                summary: "كيفية التعامل مع موجه الأوامر التفاعلي لاختبار وتجربة الشيفرات البرمجية بسرعة.",
-                details: `
-                    <p>يوفر مترجم بايثون التفاعلي (Python Interactive Interpreter) إمكانية تنفيذ الأوامر مباشرة واختبار الأفكار دون الحاجة لإنشاء ملفات برمجية كاملة.</p>
-                `,
-                code: `# تشغيل موجه الأوامر والتفاعل معه
->>> birth_year = 1868
->>> death_year = 1921
->>> age = death_year - birth_year
->>> print(age)
-53`,
-                output: "53"
-            },
-            {
-                id: 4,
-                title: "التعليقات واستخداماتها",
-                tag: "قواعد الشيفرة",
-                summary: "صياغة التعليقات السطرية والكتلية وكيفية استخدامها لتوضيح وتنقيح الشيفرات.",
-                details: `
-                    <h4>أنواع التعليقات:</h4>
-                    <ul>
-                        <li><strong>التعليقات السطرية:</strong> تبدأ بالرمز <code>#</code> وتستخدم لشرح سطر برمجي أو معيار محدد.</li>
-                        <li><strong>تعليق الشيفرات للتنقيح:</strong> استخدام <code>#</code> لتعطيل أسطر أثناء اختبار البرامج.</li>
-                    </ul>
-                `,
-                code: `# تعريف متغير يحتوي اسم المستخدم
-username = "Sammy" # تعليق سطري
-
-# طباعة رسالة الترحيب
-print("Hello, " + username)`,
-                output: "Hello, Sammy"
-            },
-            {
-                id: 5,
-                title: "المتغيرات واستخداماتها",
-                tag: "أساسيات البرمجة",
-                summary: "قواعد تسمية المتغيرات، الإسناد المتعدد، والنطاق العام والمحلي للمتغيرات.",
-                details: `
-                    <h4>قواعد تسمية المتغيرات:</h4>
-                    <ul>
-                        <li>يجب أن تتكون من أحرف، أرقام، والشرطة السفلية <code>_</code> فقط.</li>
-                        <li>لا تبدأ برقم وهوية المتغير حساسة لحالة الأحرف (Case-sensitive).</li>
-                    </ul>
-                `,
-                code: `# إسناد متعدد لعدة متغيرات
-j, k, l = "shark", 2.05, 15
-
-print(j)
-print(k)
-print(l)`,
-                output: "shark\n2.05\n15"
-            },
-            {
-                id: 6,
-                title: "أنواع البيانات والتحويل بينها",
-                tag: "البيانات",
-                summary: "الأعداد الصحيحة والعشرية، السلاسل النصية، القوائم، الصفوف، القواميس والتحويل بين أنواعها.",
-                details: `
-                    <h4>الدوال المضمنة للتحويل:</h4>
-                    <ul>
-                        <li><code>int()</code>: التحويل إلى عدد صحيح.</li>
-                        <li><code>float()</code>: التحويل إلى عدد عشري.</li>
-                        <li><code>str()</code>: التحويل إلى سلسلة نصية.</li>
-                    </ul>
-                `,
-                code: `# تحويل عدد إلى نص وضمه في طباعة
-lines = 50
-print("كتبت " + str(lines) + " سطراً برمجياً.")`,
-                output: "كتبت 50 سطراً برمجياً."
-            },
-            {
-                id: 7,
-                title: "السلاسل النصية والتعامل معها",
-                tag: "النصوص",
-                summary: "فهرسة السلاسل النصية، التقسيم (Slicing)، ودوال معالجة النصوص المفيدة.",
-                details: `
-                    <h4>تقسيم السلاسل النصية [start:stop:step]:</h4>
-                    <p>يمكن اقتطاع أجزاء من النص بدقة باستخدام الفهارس الموجبة أو السالبة مع تحديد الخطوة.</p>
-                `,
-                code: `# عكس سلسلة نصية باستعمال الخطوة السالبة
-ss = "Sammy Shark!"
-print(ss[::-1])`,
-                output: "!krahS ymmaS"
-            },
-            {
-                id: 8,
-                title: "مدخل إلى تنسيق النصوص",
-                tag: "النصوص والتنسيق",
-                summary: "استخدام محارف التهريب، السلاسل النصية الخام، والمنسقات str.format().",
-                details: `
-                    <p>تتيح الدالة <code>str.format()</code> إدراج المتغيرات وتنسيق الأعداد والمحاذاة داخل النصوص بمرونة عالية.</p>
-                `,
-                code: `# تنسيق الأرقام بمراتب عشرية محددة
-print("النسبة: {0:.2f}%".format(75.765367))`,
-                output: "النسبة: 75.77%"
-            },
-            {
-                id: 9,
-                title: "العمليات الحسابية",
-                tag: "الرياضيات",
-                summary: "العوامل الحسابية المختلفة، أسبقية العمليات، والدوال الرياضية المضمنة.",
-                details: `
-                    <h4>الدوال الرياضية الشائعة:</h4>
-                    <ul>
-                        <li><code>abs()</code>: القيمة المطلقة.</li>
-                        <li><code>divmod(a, b)</code>: تعيد ناتج القسمة والباقي معاً.</li>
-                        <li><code>round()</code>: تقريب الأعداد.</li>
-                    </ul>
-                `,
-                code: `# استخدام divmod للحصول على القسمة والباقي
-quotient, remainder = divmod(85, 15)
-print(f"الناتج: {quotient}، الباقي: {remainder}")`,
-                output: "الناتج: 5، الباقي: 10"
-            },
-            {
-                id: 10,
-                title: "العمليات المنطقية (البوليانية)",
-                tag: "المنطق والشرط",
-                summary: "عوامل الموازنة والعمليات المنطقية (and, or, not) وجداول الحقيقة.",
-                details: `
-                    <h4>القيم المنطقية:</h4>
-                    <p>تأخذ إحدى القيمتين: <code>True</code> أو <code>False</code> وهي أساس التحكم في مسار تنفيذ البرامج.</p>
-                `,
-                code: `# مثال عملي على الشروط
-grade = 83
-if grade >= 65:
-    print("ناجح")
-else:
-    print("راسب")`,
-                output: "ناجح"
-            },
-            {
-                id: 11,
-                title: "النوع List: مدخل إلى القوائم",
-                tag: "هياكل البيانات",
-                summary: "إنشاء القوائم، التعديل عليها، التقطيع، وتوابع القوائم مثل append, insert, remove.",
-                details: `
-                    <p>القوائم (Lists) عبارة عن بنى بيانات مرتبة وقابلة للتعديل (mutable).</p>
-                `,
-                code: `# التعامل مع توابع القوائم
-sea_creatures = ['shark', 'squid', 'mantis shrimp']
-sea_creatures.append('octopus')
-print(sea_creatures)`,
-                output: "['shark', 'squid', 'mantis shrimp', 'octopus']"
-            },
-            {
-                id: 12,
-                title: "النوع Tuple: فهم الصفوف",
-                tag: "هياكل البيانات",
-                summary: "الصفوف الثابتة غير القابلة للتعديل (Immutable) واستخداماتها للبيانات المحمية.",
-                details: `
-                    <p>الصفوف (Tuples) تشبه القوائم ولكنها غير قابلة للتعديل بعد إنشائها، وتُعرف باستخدام الأقواس الهلالية <code>()</code>.</p>
-                `,
-                code: `coral = ('blue coral', 'staghorn coral', 'pillar coral')
-print(len(coral))`,
-                output: "3"
-            },
-            {
-                id: 13,
-                title: "النوع Dictionary: فهم القواميس",
-                tag: "هياكل البيانات",
-                summary: "هيكل أزواج المفاتيح والقيم (Key-Value) وكيفية الوصول إليها وتعديلها.",
-                details: `
-                    <p>تُستخدم القواميس لتخزين البيانات المترابطة وتُعرف باستخدام الأقواس المعقوصة <code>{}</code>.</p>
-                `,
-                code: `sammy = {'username': 'sammy-shark', 'online': True, 'followers': 987}
-print(sammy['username'])`,
-                output: "sammy-shark"
+            ku: {
+                pageTitle: "ڤەكۆلینا په‌رتووكا پڕۆگرامسازیا پایتۆن",
+                sidebarTitle: "به‌شێن په‌رتووكێ",
+                searchPlaceholder: "لێگەڕین د بەشاندا...",
+                heroTitle: "شڕۆڤە و کورتیا په‌رتووكا \"پڕۆگرامسازیا پایتۆن 3\"",
+                heroDesc: "ژێدەرەک پەروەردەیی و تیۆری بۆ فێربوونا پایتۆن 3 ب شێوازەکێ سادە و پراکتیکی.",
+                runCodeText: "کارپێکرنا کۆدی",
+                chapters: [
+                    {
+                        id: 1,
+                        title: "داخازەکا ناساندنێ بۆ زمانێ پایتۆن",
+                        tag: "دەستپێک و بنەمای",
+                        summary: "مێژوو و تایبەتمەندێن پایتۆن، وارێن بکارئینانێ، و بۆچی بوویە هەلبژاردنا ئێکانە بۆ فێرخوازان.",
+                        details: `<h4>دەربارەی پایتۆن:</h4><p>ژلایێ <strong>غيدو فان روسوم</strong> ڤە هاتیە پەرەپێدان و ل سالا 1991 هاتە بلاڤکرن. زمانەکی ئاست بلند و ئاسانە.</p>`
+                    },
+                    {
+                        id: 2,
+                        title: "دامەزراندنا پایتۆن و ژینگها کارکرنێ",
+                        tag: "ژینگە و ئامادەکاری",
+                        summary: "چەوانیا دامەزراندنا پایتۆن 3 و دروستکرنا ژینگهێن جودا (venv) ل سەر سیستەمێن جودا.",
+                        details: `<h4>ژینگهێن جودا:</h4><p>ژینگەها ڤەکری دەرفەتێ ددەتە تە کو تو هەر پروژەکی ب تنێ و جودا درست بکەی.</p>`,
+                        code: `python3 -m venv my_env\nsource my_env/bin/activate`,
+                        output: "(my_env) user@computer:~$ "
+                    },
+                    {
+                        id: 3,
+                        title: "هیلا فەرمانێن پایتۆن یێن کارلێکەر (REPL)",
+                        tag: "ئامراز و تاقیکردنەوه",
+                        summary: "چەوانیا کارکرنێ ب ڕێیا هیلا فەرمانان بۆ تاقیکرنا کۆدێن پایتۆن ب لێکتێگەهشتن.",
+                        details: `<p>وەرگێڕێ پایتۆن یێ کارلێکەر دەرفەتێ ددەتە تە کو تو فەرمانان ب ڕاستەوخۆ بجهـ بنی.</p>`,
+                        code: `>>> birth_year = 1868\n>>> death_year = 1921\n>>> print(death_year - birth_year)`,
+                        output: "53"
+                    },
+                    {
+                        id: 4,
+                        title: "بۆچوون و شرۆڤە (Comments) و بکارئینانێن وان",
+                        tag: "ڕێسایێن کۆدی",
+                        summary: "نڤیسینا بۆچوونا بۆ ڕوونکردن و ڤەکۆلینا کۆدێن پڕۆگرامی.",
+                        details: `<h4>جۆرێن بۆچوونان:</h4><ul><li>بۆچوونا دێرێ ب نیشانا <code>#</code> دەستپێدکەت.</li></ul>`,
+                        code: `# چاپکرنا پەیاما بخێرهاتنێ\nprint("Hello, World!")`,
+                        output: "Hello, World!"
+                    },
+                    {
+                        id: 5,
+                        title: "گۆڕگار (Variables) و بکارئینانێن وان",
+                        tag: "بنەمایێن پڕۆگرامسازیێ",
+                        summary: "ڕێسایێن ناڤنیشانا گۆڕگاران، دانانا پێکڤە، و گۆڕگارێن گشتی و خۆجیهی.",
+                        details: `<h4>ڕێسایێن ناڤنیشانێ:</h4><p>دڤێت پێکبێت ژ پیت، ژمارە و هێلا خوار <code>_</code> و نەبێت ب ژمارە دەستپێبکەت.</p>`,
+                        code: `j, k, l = "shark", 2.05, 15\nprint(j, k, l)`,
+                        output: "shark 2.05 15"
+                    },
+                    {
+                        id: 6,
+                        title: "جۆرێن زانیاریان و پڕوپاگەندە د ناڤبەرا واندا",
+                        tag: "زانیاری",
+                        summary: "ژمارەیێن ڕەق و دەهیی، ڕیزبەندیێن پەیڤان (Strings)، لیستە و لێگەڕین.",
+                        details: `<h4>فەنکشنێن ئامادە:</h4><p>وەکی <code>int()</code> و <code>float()</code> و <code>str()</code>.</p>`,
+                        code: `lines = 50\nprint("تە " + str(lines) + " دێر نڤیسین.")`,
+                        output: "تە 50 دێر نڤیسین."
+                    },
+                    {
+                        id: 7,
+                        title: "ڕیزبەندیێن پەیڤان (Strings) و مامەلەکرن دگەل وان",
+                        tag: "پەیڤ",
+                        summary: "نیشانکرن و پشکڤەکرنا ڕیزبەندیێن پەیڤان (Slicing) و فەنکشنێن وان.",
+                        details: `<p>تو دشێی پشکەکێ ژ دەقی ب ڕێیا فهارسان دەربکەی.</p>`,
+                        code: `ss = "Sammy Shark!"\nprint(ss[::-1])`,
+                        output: "!krahS ymmaS"
+                    },
+                    {
+                        id: 8,
+                        title: "پێشکێشکەرێ ڕێکخستنا دەقان",
+                        tag: "ڕێکخستنا دەقان",
+                        summary: "بکارئینانا پیتێن قورتارکرنێ و ڕێکخەرێن format().",
+                        details: `<p>فەنکشنا <code>str.format()</code> رێ ددەتە تە کو گۆڕگاران د ناڤ دەقان دا جهـ بکەی.</p>`,
+                        code: `print("رێژە: {0:.2f}%".format(75.765))`,
+                        output: "رێژە: 75.77%"
+                    },
+                    {
+                        id: 9,
+                        title: "پێکهاتەیێن ژماردنێ (Math Operations)",
+                        tag: "بیرکاری",
+                        summary: "کارلێکێن بیرکاری یێن جودا و پێشەنگیا کارکرنێ.",
+                        details: `<h4>فەنکشنێن بیرکاری:</h4><p>وەکی <code>abs()</code> و <code>divmod()</code> و <code>round()</code>.</p>`,
+                        code: `print(divmod(85, 15))`,
+                        output: "(5, 10)"
+                    },
+                    {
+                        id: 10,
+                        title: "کارلێکێن لۆژیکی (Boolean)",
+                        tag: "لۆژیک و مەرج",
+                        summary: "مەرج و کارلێکێن لۆژیکی (and, or, not) و تابلۆیێن ڕاستیێ.",
+                        details: `<p>وەرارتا <code>True</code> یان <code>False</code> وەردەگرن بۆ کۆنتڕۆلکرنا رێکا پڕۆگرامی.</p>`,
+                        code: `grade = 83\nif grade >= 65:\n    print("دەرچوو")`,
+                        output: "دەرچوو"
+                    },
+                    {
+                        id: 11,
+                        title: "جۆرێ List: دەستپێک بۆ لیستەیان",
+                        tag: "پێکهاتەیێن زانیاری",
+                        summary: "دروستکرنا لیستەیان، دەستکاری کرن، و فەنکشنێن وەک append و insert.",
+                        details: `<p>لیستە (Lists) پێکهاتەیێن رێزبەند و گۆڕدراو نە.</p>`,
+                        code: `lst = ['shark', 'squid']\nlst.append('octopus')\nprint(lst)`,
+                        output: "['shark', 'squid', 'octopus']"
+                    },
+                    {
+                        id: 12,
+                        title: "جۆرێ Tuple: تێگەهشتنا پۆلان (Tuples)",
+                        tag: "پێکهاتەیێن زانیاری",
+                        summary: "پۆلێن نەگۆڕ (Immutable) و بکارئینانێن وان بۆ پاراستنا زانیاریان.",
+                        details: `<p>پۆل (Tuples) وەک لیستەیان نە بەلێ نەگۆڕن.</p>`,
+                        code: `coral = ('blue coral', 'staghorn coral')\nprint(len(coral))`,
+                        output: "2"
+                    },
+                    {
+                        id: 13,
+                        title: "جۆرێ Dictionary: تێگەهشتنا فرهنگان",
+                        tag: "پێکهاتەیێن زانیاری",
+                        summary: "پێکهاتەیا کلیل و بها (Key-Value) بۆ کۆگاکرنا زانیاریێن گرێدایی.",
+                        details: `<p>فرهنگ بۆ کۆگاکرنا زانیاریێن لێکگرێدایی ب ڕێیا کلیلان بکارهاتن.</p>`,
+                        code: `sammy = {'username': 'sammy-shark', 'followers': 987}\nprint(sammy['username'])`,
+                        output: "sammy-shark"
+                    }
+                ]
             }
-        ];
+        };
 
-        // Render Sidebar Navigation
+        let currentLang = 'ar';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            document.getElementById('htmlRoot').setAttribute('dir', lang === 'ku' ? 'ltr' : 'rtl');
+            document.getElementById('htmlRoot').setAttribute('lang', lang);
+            
+            document.getElementById('pageTitle').innerText = t.pageTitle;
+            document.getElementById('sidebarTitle').innerText = t.sidebarTitle;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('heroTitle').innerText = t.heroTitle;
+            document.getElementById('heroDesc').innerText = t.heroDesc;
+
+            renderNav();
+            renderChapters(t.chapters);
+        }
+
+        function setTheme(themeClass) {
+            document.body.className = themeClass;
+        }
+
         function renderNav() {
+            const t = translations[currentLang];
             const nav = document.getElementById('chaptersNav');
-            nav.innerHTML = bookData.map(ch => `
+            nav.innerHTML = t.chapters.map(ch => `
                 <a class="nav-chapter-item" onclick="scrollToChapter(${ch.id})">
                     <span class="ch-num">${ch.id}</span>
                     ${ch.title}
@@ -581,28 +668,24 @@ print(sammy['username'])`,
             `).join('');
         }
 
-        // Render Chapters Content
-        function renderChapters(data) {
+        function renderChapters(chaptersList) {
+            const t = translations[currentLang];
             const container = document.getElementById('chaptersContainer');
-            if (data.length === 0) {
-                container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 40px;">لم يتم العثور على نتائج تطابق بحثك.</div>';
-                return;
-            }
-
-            container.innerHTML = data.map(ch => `
+            
+            container.innerHTML = chaptersList.map(ch => `
                 <div class="chapter-card" id="chapter-${ch.id}">
                     <div class="chapter-title">
-                        <span>الفصل ${ch.id}: ${ch.title}</span>
+                        <span>${currentLang === 'ku' ? 'بەشا ' + ch.id + ': ' + ch.title : 'الفصل ' + ch.id + ': ' + ch.title}</span>
                         <span class="tag">${ch.tag}</span>
                     </div>
                     <div class="chapter-content">
-                        <p style="margin-bottom: 15px; font-weight: 600; color: var(--accent-blue);">${ch.summary}</p>
+                        <p style="margin-bottom: 12px; font-weight: 600; color: var(--accent-blue);">${ch.summary}</p>
                         ${ch.details}
                         ${ch.code ? `
                             <div class="code-block">
                                 <div class="code-header">
                                     <span class="lang">Python 3</span>
-                                    <button class="run-btn" onclick="runCode(${ch.id})">► تشغيل الشيفرة</button>
+                                    <button class="run-btn" onclick="runCode(${ch.id})">${t.runCodeText}</button>
                                 </div>
                                 <pre><code>${escapeHtml(ch.code)}</code></pre>
                                 <div class="code-output" id="output-${ch.id}">${ch.output}</div>
@@ -614,41 +697,28 @@ print(sammy['username'])`,
         }
 
         function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
         function runCode(id) {
             const outputEl = document.getElementById(`output-${id}`);
-            if (outputEl) {
-                outputEl.style.display = 'block';
-            }
+            if (outputEl) outputEl.style.display = 'block';
         }
 
         function scrollToChapter(id) {
             const el = document.getElementById(`chapter-${id}`);
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth' });
-                // Active state
-                document.querySelectorAll('.nav-chapter-item').forEach((item, index) => {
-                    if (index === id - 1) item.classList.add('active');
-                    else item.classList.remove('active');
-                });
-                // Close sidebar on mobile
-                if (window.innerWidth <= 900) {
-                    toggleSidebar();
-                }
+                if (window.innerWidth <= 900) toggleSidebar();
             }
         }
 
         function filterChapters() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = bookData.filter(ch => 
+            const t = translations[currentLang];
+            const filtered = t.chapters.filter(ch => 
                 ch.title.toLowerCase().includes(query) || 
-                ch.summary.toLowerCase().includes(query) ||
-                ch.details.toLowerCase().includes(query)
+                ch.summary.toLowerCase().includes(query)
             );
             renderChapters(filtered);
         }
@@ -657,9 +727,8 @@ print(sammy['username'])`,
             document.getElementById('sidebar').classList.toggle('open');
         }
 
-        // Initialize
-        renderNav();
-        renderChapters(bookData);
+        // Initialize Default
+        setLanguage('ar');
     </script>
 </body>
 </html>
