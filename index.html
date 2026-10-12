@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">دليل تعلم بايثون</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Cairo:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f172a;
@@ -50,7 +50,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Vazirmatn', 'Cairo', 'Segoe UI', Tahoma, sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -231,7 +231,7 @@
 
         .chapter-content {
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.9;
             font-size: 0.95rem;
         }
 
@@ -508,125 +508,125 @@
                 ]
             },
             ku: {
-                pageTitle: "ڤەكۆلینا په‌رتووكا پڕۆگرامسازیا پایتۆن",
-                sidebarTitle: "به‌شێن په‌رتووكێ",
-                searchPlaceholder: "لێگەڕین د بەشاندا...",
-                heroTitle: "شڕۆڤە و کورتیا په‌رتووكا \"پڕۆگرامسازیا پایتۆن 3\"",
-                heroDesc: "ژێدەرەک پەروەردەیی و تیۆری بۆ فێربوونا پایتۆن 3 ب شێوازەکێ سادە و پراکتیکی.",
-                runCodeText: "کارپێکرنا کۆدی",
+                pageTitle: "شرۆڤەکرنا پەرتووکا پڕۆگرامکرنێ ب پایتۆن",
+                sidebarTitle: "پشکێن پەرتووکێ",
+                searchPlaceholder: "ل پشکان بگەڕێ...",
+                heroTitle: "شرۆڤە و کورتکرنا پەرتووکا «پڕۆگرامکرن ب زمانێ پایتۆن 3»",
+                heroDesc: "سەرچاوەیەکا فێرکاری و کارلێکەر یا پشکێن بنەڕەتی و پێشکەفتی یێن زمانێ پایتۆن 3 دپۆشیت، دا جێبەجێکرنا وان ئاسان بیت.",
+                runCodeText: "کۆدی کار پێ بکە",
                 chapters: [
                     {
                         id: 1,
-                        title: "داخازەکا ناساندنێ بۆ زمانێ پایتۆن",
-                        tag: "دەستپێک و بنەمای",
-                        summary: "مێژوو و تایبەتمەندێن پایتۆن، وارێن بکارئینانێ، و بۆچی بوویە هەلبژاردنا ئێکانە بۆ فێرخوازان.",
-                        details: `<h4>دەربارەی پایتۆن:</h4><p>ژلایێ <strong>غيدو فان روسوم</strong> ڤە هاتیە پەرەپێدان و ل سالا 1991 هاتە بلاڤکرن. زمانەکی ئاست بلند و ئاسانە.</p>`
+                        title: "ناساندنەکا زمانێ پایتۆن",
+                        tag: "دەستپێک و بنەما",
+                        summary: "مێژوو و تایبەتمەندیێن پایتۆن، بوارێن بکارئینانا وێ، و بۆچی ئەو بوویە هەلبژارتنا ئێکەم بۆ دەستپێکەران.",
+                        details: `<h4>دەربارەی پایتۆنێ:</h4><p>ئەڤ زمانە ژ لایێ <strong>گیدۆ ڤان رۆسوم</strong> ڤە هاتیە دروستکرن و ل ساڵا 1991 هاتیە بەلاڤکرن. زمانەکێ ئاستبلند و چەندمەبەستە و ب ئاسانی دهێتە خواندن.</p>`
                     },
                     {
                         id: 2,
-                        title: "دامەزراندنا پایتۆن و ژینگها کارکرنێ",
-                        tag: "ژینگە و ئامادەکاری",
-                        summary: "چەوانیا دامەزراندنا پایتۆن 3 و دروستکرنا ژینگهێن جودا (venv) ل سەر سیستەمێن جودا.",
-                        details: `<h4>ژینگهێن جودا:</h4><p>ژینگەها ڤەکری دەرفەتێ ددەتە تە کو تو هەر پروژەکی ب تنێ و جودا درست بکەی.</p>`,
+                        title: "دامەزراندنا پایتۆنێ و ئامادەکرنا ژینگەهێ کارکرنێ",
+                        tag: "ئامادەکاری و ژینگەه",
+                        summary: "چەوانیا دامەزراندنا پایتۆن 3 و دروستکرنا ژینگەهێن مەجازی (venv) ل سەر سیستەمێن جۆراوجۆر.",
+                        details: `<h4>ژینگەهێن مەجازی:</h4><p>ژینگەهێ مەجازی جهەکێ جودا بۆ هەر پرۆژەیەکێ دروست دکەت، دا پاکێتێن پرۆژەیان تێکەل نەبن.</p>`,
                         code: `python3 -m venv my_env\nsource my_env/bin/activate`,
                         output: "(my_env) user@computer:~$ "
                     },
                     {
                         id: 3,
-                        title: "هیلا فەرمانێن پایتۆن یێن کارلێکەر (REPL)",
-                        tag: "ئامراز و تاقیکردنەوه",
-                        summary: "چەوانیا کارکرنێ ب ڕێیا هیلا فەرمانان بۆ تاقیکرنا کۆدێن پایتۆن ب لێکتێگەهشتن.",
-                        details: `<p>وەرگێڕێ پایتۆن یێ کارلێکەر دەرفەتێ ددەتە تە کو تو فەرمانان ب ڕاستەوخۆ بجهـ بنی.</p>`,
+                        title: "هێلا فەرمانێن کارلێکەر یا پایتۆنێ (REPL)",
+                        tag: "ئامراز و تاقیکرن",
+                        summary: "چەوانیا بکارئینانا هێلا فەرمانێ بۆ تاقیکرنا کۆدان ب لەز.",
+                        details: `<p>وەرگێڕێ کارلێکەر یێ پایتۆنێ ڕێ دەتە تە کو فەرمانان ڕاستەوخۆ جێبەجێ بکەی، بێی کو پێدڤی ب دروستکرنا پەڕگەکێ تەمام بیت.</p>`,
                         code: `>>> birth_year = 1868\n>>> death_year = 1921\n>>> print(death_year - birth_year)`,
                         output: "53"
                     },
                     {
                         id: 4,
-                        title: "بۆچوون و شرۆڤە (Comments) و بکارئینانێن وان",
-                        tag: "ڕێسایێن کۆدی",
-                        summary: "نڤیسینا بۆچوونا بۆ ڕوونکردن و ڤەکۆلینا کۆدێن پڕۆگرامی.",
-                        details: `<h4>جۆرێن بۆچوونان:</h4><ul><li>بۆچوونا دێرێ ب نیشانا <code>#</code> دەستپێدکەت.</li></ul>`,
-                        code: `# چاپکرنا پەیاما بخێرهاتنێ\nprint("Hello, World!")`,
+                        title: "تێبینی (Comments) و بکارئینانا وان",
+                        tag: "یاساییێن کۆدێ",
+                        summary: "چەوانیا نڤیسینا تێبینیان بۆ ڕوونکرن و ڕێکخستنا کۆدی.",
+                        details: `<h4>جۆرێن تێبینیان:</h4><ul><li>تێبینیا یەک دێڕی ب هێمایێ <code>#</code> دەست پێ دکەت.</li></ul>`,
+                        code: `# چاپکرنا پەیامەکا بخێرهاتنێ\nprint("Hello, World!")`,
                         output: "Hello, World!"
                     },
                     {
                         id: 5,
-                        title: "گۆڕگار (Variables) و بکارئینانێن وان",
-                        tag: "بنەمایێن پڕۆگرامسازیێ",
-                        summary: "ڕێسایێن ناڤنیشانا گۆڕگاران، دانانا پێکڤە، و گۆڕگارێن گشتی و خۆجیهی.",
-                        details: `<h4>ڕێسایێن ناڤنیشانێ:</h4><p>دڤێت پێکبێت ژ پیت، ژمارە و هێلا خوار <code>_</code> و نەبێت ب ژمارە دەستپێبکەت.</p>`,
+                        title: "گۆڕاو (Variables) و بکارئینانا وان",
+                        tag: "بنەمایێن پڕۆگرامکرنێ",
+                        summary: "یاساییێن ناڤلێکرنا گۆڕاوان، دانانا چەند بهایان ب جارەکێ، و گۆڕاوێن گشتی و ناوخۆیی.",
+                        details: `<h4>یاساییێن ناڤلێکرنێ:</h4><p>دڤێت ناڤ ژ پیت، ژمارە و هێلا خوار <code>_</code> پێک بهێت و ب ژمارەیێ دەست پێ نەکەت.</p>`,
                         code: `j, k, l = "shark", 2.05, 15\nprint(j, k, l)`,
                         output: "shark 2.05 15"
                     },
                     {
                         id: 6,
-                        title: "جۆرێن زانیاریان و پڕوپاگەندە د ناڤبەرا واندا",
-                        tag: "زانیاری",
-                        summary: "ژمارەیێن ڕەق و دەهیی، ڕیزبەندیێن پەیڤان (Strings)، لیستە و لێگەڕین.",
-                        details: `<h4>فەنکشنێن ئامادە:</h4><p>وەکی <code>int()</code> و <code>float()</code> و <code>str()</code>.</p>`,
-                        code: `lines = 50\nprint("تە " + str(lines) + " دێر نڤیسین.")`,
-                        output: "تە 50 دێر نڤیسین."
+                        title: "جۆرێن داتایێ و گۆڕین د ناڤبەرا واندا",
+                        tag: "داتا",
+                        summary: "ژمارێن تەمام و دەهی، دەق (Strings)، لیست، تیوپل و فەرهەنگ.",
+                        details: `<h4>فەنکشنێن ئامادە:</h4><p>وەک <code>int()</code> و <code>float()</code> و <code>str()</code>.</p>`,
+                        code: `lines = 50\nprint("من " + str(lines) + " دێڕ نڤیسین.")`,
+                        output: "من 50 دێڕ نڤیسین."
                     },
                     {
                         id: 7,
-                        title: "ڕیزبەندیێن پەیڤان (Strings) و مامەلەکرن دگەل وان",
-                        tag: "پەیڤ",
-                        summary: "نیشانکرن و پشکڤەکرنا ڕیزبەندیێن پەیڤان (Slicing) و فەنکشنێن وان.",
-                        details: `<p>تو دشێی پشکەکێ ژ دەقی ب ڕێیا فهارسان دەربکەی.</p>`,
+                        title: "دەق (Strings) و مامەلەکرن دگەل وان",
+                        tag: "دەق",
+                        summary: "ئیندێکسکرن، برینا پارچەیان (Slicing)، و فەنکشنێن چارەسەرکرنا دەقان.",
+                        details: `<p>تو دشێی پارچەکێ ژ دەقی ب ڕێکا ئیندێکسان وەربگری.</p>`,
                         code: `ss = "Sammy Shark!"\nprint(ss[::-1])`,
                         output: "!krahS ymmaS"
                     },
                     {
                         id: 8,
-                        title: "پێشکێشکەرێ ڕێکخستنا دەقان",
-                        tag: "ڕێکخستنا دەقان",
-                        summary: "بکارئینانا پیتێن قورتارکرنێ و ڕێکخەرێن format().",
-                        details: `<p>فەنکشنا <code>str.format()</code> رێ ددەتە تە کو گۆڕگاران د ناڤ دەقان دا جهـ بکەی.</p>`,
-                        code: `print("رێژە: {0:.2f}%".format(75.765))`,
-                        output: "رێژە: 75.77%"
+                        title: "ناساندنەکا ڕێکخستنا دەقان",
+                        tag: "دەق و ڕێکخستن",
+                        summary: "بکارئینانا هێمایێن دەربازبوونێ (escape)، دەقێن خاو (raw)، و ڕێکخەرێ format().",
+                        details: `<p>فەنکشنا <code>str.format()</code> ڕێ دەتە تە کو گۆڕاوان بخەیە د ناڤ دەقی دا و ژمارەیان ب ئاسانی ڕێک بخەی.</p>`,
+                        code: `print("ڕێژە: {0:.2f}%".format(75.765))`,
+                        output: "ڕێژە: 75.77%"
                     },
                     {
                         id: 9,
-                        title: "پێکهاتەیێن ژماردنێ (Math Operations)",
+                        title: "کارێن ژمارەیی (بیرکاری)",
                         tag: "بیرکاری",
-                        summary: "کارلێکێن بیرکاری یێن جودا و پێشەنگیا کارکرنێ.",
-                        details: `<h4>فەنکشنێن بیرکاری:</h4><p>وەکی <code>abs()</code> و <code>divmod()</code> و <code>round()</code>.</p>`,
+                        summary: "ئۆپەراتۆرێن بیرکاری، پێشەنگیا کارپێکرنێ، و فەنکشنێن بیرکاری یێن ئامادە.",
+                        details: `<h4>فەنکشنێن بیرکاری:</h4><p>وەک <code>abs()</code> و <code>divmod()</code> و <code>round()</code>.</p>`,
                         code: `print(divmod(85, 15))`,
                         output: "(5, 10)"
                     },
                     {
                         id: 10,
-                        title: "کارلێکێن لۆژیکی (Boolean)",
+                        title: "کارێن لۆژیکی (Boolean)",
                         tag: "لۆژیک و مەرج",
-                        summary: "مەرج و کارلێکێن لۆژیکی (and, or, not) و تابلۆیێن ڕاستیێ.",
-                        details: `<p>وەرارتا <code>True</code> یان <code>False</code> وەردەگرن بۆ کۆنتڕۆلکرنا رێکا پڕۆگرامی.</p>`,
+                        summary: "ئۆپەراتۆرێن بەراوردکرنێ و لۆژیکی (and, or, not) و خشتەیێن ڕاستیێ.",
+                        details: `<p>ئەڤ جۆرە بهایێن <code>True</code> یان <code>False</code> وەردگرت، دا ڕێکا پرۆگرامی کۆنترۆل بکەت.</p>`,
                         code: `grade = 83\nif grade >= 65:\n    print("دەرچوو")`,
                         output: "دەرچوو"
                     },
                     {
                         id: 11,
-                        title: "جۆرێ List: دەستپێک بۆ لیستەیان",
-                        tag: "پێکهاتەیێن زانیاری",
-                        summary: "دروستکرنا لیستەیان، دەستکاری کرن، و فەنکشنێن وەک append و insert.",
-                        details: `<p>لیستە (Lists) پێکهاتەیێن رێزبەند و گۆڕدراو نە.</p>`,
+                        title: "جۆرێ List: ناساندنا لیستان",
+                        tag: "پێکهاتەیێن داتایێ",
+                        summary: "دروستکرنا لیستان، دەستکاریکرنا وان، و فەنکشنێن وەک append و insert.",
+                        details: `<p>لیست (List) پێکهاتەیێن ڕیزکری و گۆڕاون.</p>`,
                         code: `lst = ['shark', 'squid']\nlst.append('octopus')\nprint(lst)`,
                         output: "['shark', 'squid', 'octopus']"
                     },
                     {
                         id: 12,
-                        title: "جۆرێ Tuple: تێگەهشتنا پۆلان (Tuples)",
-                        tag: "پێکهاتەیێن زانیاری",
-                        summary: "پۆلێن نەگۆڕ (Immutable) و بکارئینانێن وان بۆ پاراستنا زانیاریان.",
-                        details: `<p>پۆل (Tuples) وەک لیستەیان نە بەلێ نەگۆڕن.</p>`,
+                        title: "جۆرێ Tuple: تێگەهشتن ژ تیوپلان",
+                        tag: "پێکهاتەیێن داتایێ",
+                        summary: "تیوپلێن نەگۆڕ (Immutable) و بکارئینانا وان بۆ پاراستنا داتایان.",
+                        details: `<p>تیوپل (Tuple) وەک لیستان نە، بەلێ نەگۆڕن.</p>`,
                         code: `coral = ('blue coral', 'staghorn coral')\nprint(len(coral))`,
                         output: "2"
                     },
                     {
                         id: 13,
-                        title: "جۆرێ Dictionary: تێگەهشتنا فرهنگان",
-                        tag: "پێکهاتەیێن زانیاری",
-                        summary: "پێکهاتەیا کلیل و بها (Key-Value) بۆ کۆگاکرنا زانیاریێن گرێدایی.",
-                        details: `<p>فرهنگ بۆ کۆگاکرنا زانیاریێن لێکگرێدایی ب ڕێیا کلیلان بکارهاتن.</p>`,
+                        title: "جۆرێ Dictionary: تێگەهشتن ژ فەرهەنگان",
+                        tag: "پێکهاتەیێن داتایێ",
+                        summary: "پێکهاتەیا جووتێن کلیل و بها (Key-Value) بۆ هەلگرتنا داتایێن ب هەڤ ڤە گرێدایی.",
+                        details: `<p>فەرهەنگ بۆ هەلگرتنا داتایێن ب هەڤ ڤە گرێدایی ب ڕێکا کلیلان دهێنە بکارئینان.</p>`,
                         code: `sammy = {'username': 'sammy-shark', 'followers': 987}\nprint(sammy['username'])`,
                         output: "sammy-shark"
                     }
@@ -640,8 +640,8 @@
             currentLang = lang;
             const t = translations[lang];
             
-            document.getElementById('htmlRoot').setAttribute('dir', lang === 'ku' ? 'ltr' : 'rtl');
-            document.getElementById('htmlRoot').setAttribute('lang', lang);
+            document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
+            document.getElementById('htmlRoot').setAttribute('lang', lang === 'ku' ? 'ku-Arab' : 'ar');
             
             document.getElementById('pageTitle').innerText = t.pageTitle;
             document.getElementById('sidebarTitle').innerText = t.sidebarTitle;
@@ -675,7 +675,7 @@
             container.innerHTML = chaptersList.map(ch => `
                 <div class="chapter-card" id="chapter-${ch.id}">
                     <div class="chapter-title">
-                        <span>${currentLang === 'ku' ? 'بەشا ' + ch.id + ': ' + ch.title : 'الفصل ' + ch.id + ': ' + ch.title}</span>
+                        <span>${currentLang === 'ku' ? 'پشکا ' + ch.id + ': ' + ch.title : 'الفصل ' + ch.id + ': ' + ch.title}</span>
                         <span class="tag">${ch.tag}</span>
                     </div>
                     <div class="chapter-content">
